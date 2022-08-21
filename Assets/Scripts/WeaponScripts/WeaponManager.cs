@@ -30,6 +30,10 @@ public class WeaponManager : MonoBehaviour
         tickManagement.GetComponent<TickManager>().OnTickIncrease += SpawnWeapon;
     }
 
+    private void LateUpdate()
+    {
+        CheckForMaxLevels();
+    }
 
     // main logic for spawning the various weapons
     void SpawnWeapon(object sender, System.EventArgs e)
@@ -56,7 +60,7 @@ public class WeaponManager : MonoBehaviour
             GameObject weapon = Instantiate(weapons[0], player.transform.position, Quaternion.identity);
             weapon.GetComponent<Whip>().level = whipLevel;
 
-            if (whipLevel >= 5)
+            if (whipLevel > 1)
             {
                 GameObject secondWeapon = Instantiate(weapons[0], player.transform.position, Quaternion.identity);
                 Vector3 weaponVector = secondWeapon.transform.localScale;
@@ -70,10 +74,14 @@ public class WeaponManager : MonoBehaviour
             }
         }
 
-        // SANTAWATER FUNCTIONS
+
+        // SATANWATER FUNCTIONS
         if (currentTick % santaWaterCooldown == 0 & santaLevel > 0)
         {
+            //Determine the number of spawns needed
+            
 
+            //Initialize the list of potential unit veectors
             Vector2[] spawnVecs = {
                 new Vector2(unitCircle[0, 0], unitCircle[0, 1]),new Vector2(unitCircle[1, 0], unitCircle[1, 1]),
                 new Vector2(unitCircle[2, 0], unitCircle[2, 1]),new Vector2(-unitCircle[0, 0], unitCircle[0, 1]),
@@ -82,15 +90,23 @@ public class WeaponManager : MonoBehaviour
                 new Vector2(unitCircle[2, 0], -unitCircle[2, 1]),new Vector2(-unitCircle[0, 0], -unitCircle[0, 1]),
                 new Vector2(-unitCircle[1, 0], -unitCircle[1, 1]),new Vector2(-unitCircle[2, 0], -unitCircle[2, 1])
             };
-            List<Vector2> vecList = new List<Vector2>(spawnVecs);
+            List<Vector2> vecList = new(spawnVecs);
+
+            //more explicit and less editable but still easy to edit and less prone to bugs
+            int numSpawns = 1;
+            if (santaLevel > 1) { numSpawns += 1; }
+            if (santaLevel > 3) { numSpawns += 1; }
+            if (santaLevel > 5) { numSpawns += 1; }
 
             int u = 0;
-            while (u < santaLevel / 2)
+            while (u < numSpawns)
             {
                 int chosenElement = Random.Range(0, vecList.Count - 1);
                 Vector2 chosenVec = vecList[chosenElement];
                 vecList.RemoveAt(chosenElement);
 
+
+                // put all functions here
                 SpawnSanta(santaLevel, chosenVec);
                 u++;
             }
@@ -128,12 +144,18 @@ public class WeaponManager : MonoBehaviour
         // do transforms and stat adjustments to the weapon
         spawnVec *= weapon.GetComponent<SantaWater>().spawnRadius;
         weapon.transform.position += new Vector3(spawnVec.x, spawnVec.y, 0);
-        weapon.GetComponent<SantaWater>().level = level;
+        weapon.GetComponent<SantaWater>().level = santaLevel;
     }
 
 
 
 
-    
+    void CheckForMaxLevels()
+    {
+        if (whipLevel > 8) { whipLevel = 8; }
+        if (santaLevel > 8) { santaLevel = 8; }
+        if (boltLevel > 8) { boltLevel = 8; }
+        if (orbLevel > 8) { orbLevel = 8; }
+    }
 
 }

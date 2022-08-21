@@ -10,7 +10,10 @@ public class InfernalBolt : MonoBehaviour
     [Header("Weapon Stats")]
     public float speed;
     public float baseWeaponDamage;
-    public float cooldown;
+    public float baseCooldown;
+    [System.NonSerialized] public float cooldown;
+    [System.NonSerialized] private int enemiesToPass = 1;
+    [System.NonSerialized] private int enemiesPassed = 0;
     public float castLength;
 
     [HideInInspector] private float time = 0;
@@ -60,7 +63,8 @@ public class InfernalBolt : MonoBehaviour
         if (collision.gameObject.TryGetComponent<EnemyManager>(out EnemyManager enemyComponent))
         {
             enemyComponent.TakeDamage(weaponDamage);
-            Destroy(this.gameObject);
+            enemiesPassed += 1;
+            if (enemiesPassed > enemiesToPass) { Destroy(this.gameObject); }
         }
     }
 
@@ -72,28 +76,76 @@ public class InfernalBolt : MonoBehaviour
         switch (level)
         {
             case 0:
+                weaponDamage = 0;
+                this.transform.localScale =
+                    new Vector3(1.0f, 1.0f, 0.0f);
+                cooldown = baseCooldown;
+                enemiesToPass = 1;
                 levelUpTooltip = "Fires at the nearest enemy.";
                 break;
-            case 3:
+            case 1:
+                weaponDamage = baseWeaponDamage;
+                this.transform.localScale =
+                    new Vector3(1.0f, 1.0f, 0.0f);
+                cooldown = baseCooldown;
+                enemiesToPass = 1;
+                levelUpTooltip = "Passes through 1 more enemy.";
+                break;
+            case 2:
+                weaponDamage = baseWeaponDamage;
+                this.transform.localScale =
+                    new Vector3(1.0f, 1.0f, 0.0f);
+                cooldown = baseCooldown;
+                enemiesToPass = 2;
                 levelUpTooltip = "Cooldown reduced by 0.2 seconds.";
                 break;
-            case 1:
-            case 2:
-            case 4:
-            case 6:
-                levelUpTooltip = "Gain additional projectile.";
+            case 3:
+                weaponDamage = baseWeaponDamage;
+                this.transform.localScale =
+                    new Vector3(1.0f, 1.0f, 0.0f);
+                cooldown = baseCooldown - 0.2f;
+                enemiesToPass = 2;
+                levelUpTooltip = "Passes through 1 more enemy.";
                 break;
-
+            case 4:
+                weaponDamage = baseWeaponDamage;
+                this.transform.localScale =
+                    new Vector3(1.0f, 1.0f, 0.0f);
+                cooldown = baseCooldown;
+                enemiesToPass = 3;
+                levelUpTooltip = "Base damage up by 10.";
+                break;
             case 5:
-                levelUpTooltip = "Base damage up.";
+                weaponDamage = baseWeaponDamage + 10;
+                this.transform.localScale =
+                    new Vector3(1.0f, 1.0f, 0.0f);
+                cooldown = baseCooldown;
+                enemiesToPass = 3;
+                levelUpTooltip = "Passes through 1 more enemy.";
+                break;
+            case 6:
+                weaponDamage = baseWeaponDamage + 10;
+                this.transform.localScale =
+                    new Vector3(1.0f, 1.0f, 0.0f);
+                cooldown = baseCooldown;
+                enemiesToPass = 4;
+                levelUpTooltip = "Passes through 1 more enemy.";
                 break;
             case 7:
-                levelUpTooltip = "Passes through one more enemy.";
+                weaponDamage = baseWeaponDamage + 10;
+                this.transform.localScale =
+                    new Vector3(1.0f, 1.0f, 0.0f);
+                cooldown = baseCooldown;
+                enemiesToPass = 5;
+                levelUpTooltip = "Base damage up by 10.";
                 break;
             case 8:
-                levelUpTooltip = "Great job nerd. You've played this too much.";
+                weaponDamage = baseWeaponDamage + 20;
+                this.transform.localScale =
+                    new Vector3(1.0f, 1.0f, 0.0f);
+                cooldown = baseCooldown * 0.5f;
+                levelUpTooltip = "Max level.";
                 break;
-
         }
 
         return levelUpTooltip;

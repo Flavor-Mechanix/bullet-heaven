@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 3881882175628667740}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -10.54, y: 4.93, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.1, y: 1.1, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -4900,10 +4900,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de33219ece225784db10549c18e0bff9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseWeaponDamage: 40
-  cooldown: 2
+  baseWeaponDamage: 20
+  baseCooldown: 3
+  cooldown: 3
   castLength: 0.45
   level: 0
-  weaponDamage: 75
-  levelUpTooltip: +5 damage.
+  levelUpTooltip: Base damage up by 5.
   nameTooltip: Abyssal Whip

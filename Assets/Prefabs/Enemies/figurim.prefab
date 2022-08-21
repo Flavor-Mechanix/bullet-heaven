@@ -149,10 +149,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   body: {fileID: 6932253073367820852}
   image: {fileID: 6932253073367820854}
-  runSpeed: 4
+  runSpeed: 6
   currentHealth: 0
-  maxHealth: 400
-  damage: 20
+  maxHealth: 100
+  damage: 10
   expWorth: 4
 --- !u!61 &4314153471042962622
 BoxCollider2D:

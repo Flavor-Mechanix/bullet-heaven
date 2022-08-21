@@ -5,13 +5,15 @@ using UnityEngine;
 public class SantaWater : MonoBehaviour
 {
     [Header("Weapon Stats")]
-    public float baseWeaponDamage = 20f;
-    public float cooldown = 6f;
-    public float castLength = 0.45f;
-    public int level = 0;
-    public float spawnRadius = 10f;
+    public float baseWeaponDamage;
+    public float cooldown;
+    public float baseCastLength;
+    public float castLength;
+    public int level;
+    public float spawnRadius;
     //Internal variables
     private float time = 0;
+    private Vector3 baseScale = new(4.0f, 4.0f, 0);
     
     public string nameTooltip = "Satan water";
     public string levelUpTooltip;
@@ -19,6 +21,7 @@ public class SantaWater : MonoBehaviour
 
     private void Start()
     {
+        baseScale = new(4.0f, 4.0f, 0);
         SetStats(level);
     }
 
@@ -49,27 +52,70 @@ public class SantaWater : MonoBehaviour
         switch (level)
         {
             case 0:
+                weaponDamage = 0;
+                this.transform.localScale = baseScale;
+
                 levelUpTooltip = "Generates damaging zones.";
                 break;
-            case 3:
-                levelUpTooltip = "Base damage up. Effect lasts 0.5 seconds longer.";
-                break;
             case 1:
-            case 2:
-            case 4:
-            case 6:
-            case 8:
-                levelUpTooltip = "Gain additional projectile. Area up.";
-                levelUpTooltip = "Size increased. Attack up.";
-                this.transform.localScale +=
-                    new Vector3(0.2f * level, 0.2f * level, 0.0f);
-                break;
-            
-            case 5:
-            case 7:
-                levelUpTooltip = "Base damage up. Effect lasts 0.3 seconds longer.";
-                break;
+                weaponDamage = baseWeaponDamage;
+                this.transform.localScale = baseScale;
 
+
+                levelUpTooltip = "Fires 1 more projectile. Base area up by 20%.";
+                break;
+            case 2:
+                weaponDamage = baseWeaponDamage;
+                this.transform.localScale = baseScale * 1.2f;
+
+
+                levelUpTooltip = "Base damage up by 10. Effect lasts 0.5 seconds longer.";
+                break;
+            case 3:
+                weaponDamage = baseWeaponDamage + 10;
+                castLength = baseCastLength + 0.5f;
+                this.transform.localScale = baseScale * 1.2f;
+
+
+                levelUpTooltip = "Fires 1 more projectile. Base area up by 20%.";
+                break;
+            case 4:
+                weaponDamage = baseWeaponDamage + 10;
+                castLength = baseCastLength + 0.5f;
+                this.transform.localScale = baseScale * 1.4f;
+
+
+                levelUpTooltip = "Base damage up by 10. Effect lasts 0.3 seconds longer.";
+                break;
+            case 5:
+                weaponDamage = baseWeaponDamage + 20;
+                castLength = baseCastLength + 0.8f;
+                this.transform.localScale = baseScale * 1.4f;
+
+                levelUpTooltip = "Fires 1 more projectile. Base area up by 20%.";
+                break;
+            case 6:
+                weaponDamage = baseWeaponDamage + 20;
+                castLength = baseCastLength + 0.8f;
+                this.transform.localScale = baseScale * 1.6f;
+
+
+                levelUpTooltip = "Base damage up by 5. Effect lasts 0.3 seconds longer.";
+                break;
+            case 7:
+                weaponDamage = baseWeaponDamage + 25;
+                castLength = baseCastLength + 1.1f;
+                this.transform.localScale = baseScale * 1.6f;
+
+                levelUpTooltip = "Base damage up by 5. Base area up by 20%.";
+                break;
+            case 8:
+                weaponDamage = baseWeaponDamage + 30;
+                castLength = baseCastLength + 1.1f;
+                this.transform.localScale = baseScale * 1.8f;
+
+                levelUpTooltip = "Max level.";
+                break;
         }
 
         return levelUpTooltip;

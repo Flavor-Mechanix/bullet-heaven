@@ -152,7 +152,7 @@ MonoBehaviour:
   runSpeed: 8
   currentHealth: 0
   maxHealth: 40
-  damage: 5
+  damage: 3
   expWorth: 2
 --- !u!61 &4314153471042962622
 BoxCollider2D:

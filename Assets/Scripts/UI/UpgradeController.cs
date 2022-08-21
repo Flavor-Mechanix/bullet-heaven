@@ -146,22 +146,22 @@ public class UpgradeController : MonoBehaviour
 
         if (weapon.TryGetComponent<Whip>(out Whip whip))
         {
-            weaponLevel = weaponManager.GetComponent<WeaponManager>().whipLevel;
+            weaponLevel = weaponManager.GetComponent<WeaponManager>().whipLevel +1;
         }
 
         else if (weapon.TryGetComponent<SantaWater>(out SantaWater santaWater))
         {
-            weaponLevel = weaponManager.GetComponent<WeaponManager>().santaLevel;
+            weaponLevel = weaponManager.GetComponent<WeaponManager>().santaLevel +1;
         }
 
         else if (weapon.TryGetComponent<InfernalBolt>(out InfernalBolt infernalBolt))
         {
-            weaponLevel = weaponManager.GetComponent<WeaponManager>().boltLevel;
+            weaponLevel = weaponManager.GetComponent<WeaponManager>().boltLevel +1;
         }
 
         else if (weapon.TryGetComponent<Orbital>(out Orbital orbital))
         {
-            weaponLevel = weaponManager.GetComponent<WeaponManager>().orbLevel;
+            weaponLevel = weaponManager.GetComponent<WeaponManager>().orbLevel +1;
         }
 
         return weaponLevel.ToString();

@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 6819556665933083982}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 7.22, y: 2.92, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -139,9 +139,9 @@ MonoBehaviour:
   rb: {fileID: 6819556665933083984}
   speed: 5
   baseWeaponDamage: 20
-  cooldown: 2
+  baseCooldown: 4
   castLength: 10
-  weaponDamage: 400
+  weaponDamage: 20
   level: 0
   nameTooltip: Infernal Bolt
-  levelUpTooltip: 
+  levelUpTooltip: Cooldown reduced by 0.2 seconds.

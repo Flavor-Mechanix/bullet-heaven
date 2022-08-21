@@ -7040,7 +7040,7 @@ PrefabInstance:
       objectReference: {fileID: 2036229002}
     - target: {fileID: 2256990327269518739, guid: 4fe14a4a651104e0f8d46c8a21456364, type: 3}
       propertyPath: levelScaler
-      value: 1.1
+      value: 1.14
       objectReference: {fileID: 0}
     - target: {fileID: 2256990327269518739, guid: 4fe14a4a651104e0f8d46c8a21456364, type: 3}
       propertyPath: upgradeMenu
@@ -7054,6 +7054,10 @@ PrefabInstance:
       propertyPath: levelupDiddle
       value: 
       objectReference: {fileID: 8300000, guid: e58cb49d0b9e7491d8ba9df7c58711c0, type: 3}
+    - target: {fileID: 2256990327269518739, guid: 4fe14a4a651104e0f8d46c8a21456364, type: 3}
+      propertyPath: expNeededToLevel
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 2256990327269518740, guid: 4fe14a4a651104e0f8d46c8a21456364, type: 3}
       propertyPath: m_RootOrder
       value: 5

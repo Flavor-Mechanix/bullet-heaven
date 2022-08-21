@@ -145,7 +145,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   body: {fileID: 2256990327269518743}
-  runSpeed: 10
+  runSpeed: 8
   animator: {fileID: 7962859703465113039}
   sprite: {fileID: 8103798370820270929}
 --- !u!114 &2256990327269518739
@@ -168,6 +168,7 @@ MonoBehaviour:
   currentLevel: 1
   maxLevel: 20
   loseScene: 
+  levelupDiddle: {fileID: 0}
   upgradeMenu: {fileID: 0}
   statsMenu: {fileID: 0}
 --- !u!70 &2712299749085556124

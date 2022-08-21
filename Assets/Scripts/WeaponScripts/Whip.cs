@@ -6,14 +6,15 @@ public class Whip : MonoBehaviour
 {
     [Header("Weapon Stats")]
     public float baseWeaponDamage = 20f;
-    public float cooldown = 6f;
+    public float baseCooldown = 6f;
+    public float cooldown;
     public float castLength = 0.45f;
     public int level = 0;
 
     //Internal variables
 
     private float time = 0;
-    [HideInInspector] public float weaponDamage;
+    [System.NonSerialized] public float weaponDamage;
     private int maxLevel = 8;
     public string levelUpTooltip;
     public string nameTooltip = "Abyssal Whip";
@@ -46,34 +47,72 @@ public class Whip : MonoBehaviour
 
     public string SetStats(int level)
     {
-        weaponDamage = baseWeaponDamage + (level * 5);
-        // 
-        //
-        // Debug.Log("Weapon level: " + level);
-
-
+       //This is kind of confusing because weapon stats are based on current level, tooltip is for NEXT level
         switch (level)
         {
             case 0:
+                weaponDamage = 0;
+                this.transform.localScale =
+                    new Vector3(1.0f, 1.0f, 0.0f);
+                cooldown = baseCooldown;
                 levelUpTooltip = "Attacks horizontally, passes through enemies.";
                 break;
             case 1:
-            case 2:
-                levelUpTooltip = "Gain additional whip. Attack up.";
+                weaponDamage = baseWeaponDamage;
+                this.transform.localScale =
+                    new Vector3(1.0f, 1.0f, 0.0f);
+                cooldown = baseCooldown;
+                levelUpTooltip = "Gain additional whip.";
                 break;
-            case 4:
-            case 6:
-                levelUpTooltip = "Size increased. Attack up.";
-                this.transform.localScale +=
-                    new Vector3(0.5f * level, 0.5f * level, 0.0f);
+            case 2:
+                weaponDamage = baseWeaponDamage;
+                this.transform.localScale =
+                    new Vector3(1.0f, 1.0f, 0.0f);
+                cooldown = baseCooldown;
+                levelUpTooltip = "Base damage up by 5.";
                 break;
             case 3:
+                weaponDamage = baseWeaponDamage + 5;
+                this.transform.localScale =
+                    new Vector3(1.0f, 1.0f, 0.0f);
+                cooldown = baseCooldown;
+                levelUpTooltip = "Base damage up by 5. Base area up by 10%.";
+                break;
+            case 4:
+                weaponDamage = baseWeaponDamage + 10;
+                this.transform.localScale =
+                    new Vector3(1.1f, 1.1f, 0.0f);
+                cooldown = baseCooldown;
+                levelUpTooltip = "Base damage up by 5.";
+                break;
             case 5:
-            case 7:
-            case 8:
+                weaponDamage = baseWeaponDamage + 15;
+                this.transform.localScale =
+                    new Vector3(1.1f, 1.1f, 0.0f);
+                cooldown = baseCooldown;
+                levelUpTooltip = "Base damage up by 5. Base area up by 10%.";
+                break;
+            case 6:
+                weaponDamage = baseWeaponDamage + 20;
+                this.transform.localScale =
+                    new Vector3(1.2f, 1.2f, 0.0f);
+                cooldown = baseCooldown;
                 levelUpTooltip = "+5 damage.";
                 break;
-            
+            case 7:
+                weaponDamage = baseWeaponDamage + 25;
+                this.transform.localScale =
+                    new Vector3(1.2f, 1.2f, 0.0f);
+                cooldown = baseCooldown;
+                levelUpTooltip = "Attacks twice as fast.";
+                break;
+            case 8:
+                weaponDamage = baseWeaponDamage + 25;
+                this.transform.localScale =
+                    new Vector3(1.2f, 1.2f, 0.0f);
+                cooldown = baseCooldown * 0.5f;
+                levelUpTooltip = "Max level.";
+                break;
         }
 
         return levelUpTooltip;
