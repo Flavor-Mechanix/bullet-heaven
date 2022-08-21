@@ -2,51 +2,52 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class InfernalBolt : MonoBehaviour
+public class Orbital : MonoBehaviour
 {
-    
-    public Rigidbody2D rb;
+
+    // public Rigidbody2D rb;
+    [HideInInspector] public Transform target;
 
     [Header("Weapon Stats")]
-    public float speed;
     public float baseWeaponDamage;
     public float cooldown;
     public float castLength;
+    public float RotationSpeed = 1;
+    public float CircleRadius = 1;
 
-    [HideInInspector] private float time = 0;
+    //Internal variables
+    
+    private float time = 0;
     [HideInInspector] public float weaponDamage;
     [HideInInspector] public int level = 0;
 
-    public string nameTooltip = "Infernal Bolt";
+    public string nameTooltip = "Sigil's Shepherd";
     public string levelUpTooltip;
+
+    // Drag & drop the player in the inspector
+    private readonly float ElevationOffset = 0;
+
+    private Vector3 positionOffset;
+    private float angle;
+
 
     private void Start()
     {
         SetStats(level);
-        float shortestDist = 100000;
-        GameObject nearestEnemy = null;
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        for (int i = 0; i < enemies.Length; i++)
-        {
-            float enemyDist = Mathf.Abs(Vector3.Distance(this.transform.position, enemies[i].transform.position));
-            if (enemyDist < shortestDist)
-            {
-                shortestDist = enemyDist;
-                nearestEnemy = enemies[i];
-            }
-        }
-
-        Vector3 dirToShoot = nearestEnemy.transform.position - this.transform.position;
-
-
-        //Key line that shoots thing in a given direction
-        rb.velocity = dirToShoot * speed;
-
+        target = GameObject.FindGameObjectWithTag("Player").transform;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void LateUpdate()
     {
+        positionOffset.Set(
+            Mathf.Cos(angle) * CircleRadius,
+            Mathf.Sin(angle) * CircleRadius,
+            ElevationOffset
+        );
+
+        transform.position = target.position + positionOffset;
+        angle += Time.deltaTime * RotationSpeed;
+
         time += Time.deltaTime;
         if (time > castLength)
         {
@@ -54,13 +55,13 @@ public class InfernalBolt : MonoBehaviour
         }
     }
 
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         //make enemies take damage
         if (collision.gameObject.TryGetComponent<EnemyManager>(out EnemyManager enemyComponent))
         {
             enemyComponent.TakeDamage(weaponDamage);
-            Destroy(this.gameObject);
         }
     }
 
@@ -71,9 +72,11 @@ public class InfernalBolt : MonoBehaviour
 
         switch (level)
         {
+            
             case 0:
-                levelUpTooltip = "Fires at the nearest enemy.";
+                levelUpTooltip = "Passes through enemies, bounces around";
                 break;
+
             case 3:
                 levelUpTooltip = "Cooldown reduced by 0.2 seconds.";
                 break;
@@ -91,7 +94,7 @@ public class InfernalBolt : MonoBehaviour
                 levelUpTooltip = "Passes through one more enemy.";
                 break;
             case 8:
-                levelUpTooltip = "Great job nerd. You've played this too much.";
+                levelUpTooltip = "Effect lasts .5 seconds longer.";
                 break;
 
         }

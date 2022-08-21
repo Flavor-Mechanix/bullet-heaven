@@ -50,7 +50,10 @@ MonoBehaviour:
   cooldown: 6
   castLength: 6
   level: 0
-  weaponDamage: 0
+  spawnRadius: 10
+  nameTooltip: Satan Water
+  levelUpTooltip: Generates damaging zones.
+  weaponDamage: 35
 --- !u!61 &8660548434615068265
 BoxCollider2D:
   m_ObjectHideFlags: 0

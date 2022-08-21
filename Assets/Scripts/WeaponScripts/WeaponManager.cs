@@ -11,14 +11,19 @@ public class WeaponManager : MonoBehaviour
     private int currentTick;
     private float[,] unitCircle = { { 1 / 2, Mathf.Sqrt(3) / 2 }, { Mathf.Sqrt(2) / 2, Mathf.Sqrt(2) / 2 }, { Mathf.Sqrt(3) / 2, 1 / 2 } };
     //private float[] cooldowns;
-    private float whipCooldown, santaWaterCooldown, boltCooldown;
+    private float whipCooldown, santaWaterCooldown, boltCooldown, orbCooldown;
     // Start is called before the first frame update
 
     [Header("Weapon Levels")]
     [SerializeField] public int whipLevel = 1;
     [SerializeField] public int santaLevel = 0;
     [SerializeField] public int boltLevel = 0;
+    [SerializeField] public int orbLevel = 0;
 
+    public string whipTooltip = null;
+    public string satanTooltip = null;
+    public string boltTooltip = null;
+    public string orbTooltip = null;
 
     void Start()
     {
@@ -26,19 +31,27 @@ public class WeaponManager : MonoBehaviour
     }
 
 
-
+    // main logic for spawning the various weapons
     void SpawnWeapon(object sender, System.EventArgs e)
     {
         currentTick = tickManagement.GetComponent<TickManager>().tickCount;
 
         whipCooldown = weapons[0].GetComponent<Whip>().cooldown;
+        whipTooltip = weapons[0].GetComponent<Whip>().SetStats(whipLevel);
+
         santaWaterCooldown = weapons[1].GetComponent<SantaWater>().cooldown;
+        satanTooltip = weapons[1].GetComponent<SantaWater>().SetStats(santaLevel);
+
         boltCooldown = weapons[2].GetComponent<InfernalBolt>().cooldown;
+        boltTooltip = weapons[2].GetComponent<InfernalBolt>().SetStats(boltLevel);
+
+        orbCooldown = weapons[3].GetComponent<Orbital>().cooldown;
+        orbTooltip = weapons[3].GetComponent<Orbital>().SetStats(orbLevel);
 
 
 
         // WHIP FUNCTIONS
-        if (currentTick % whipCooldown == 0)
+        if (currentTick % whipCooldown == 0 & whipLevel > 0)
         {
             GameObject weapon = Instantiate(weapons[0], player.transform.position, Quaternion.identity);
             weapon.GetComponent<Whip>().level = whipLevel;
@@ -58,7 +71,7 @@ public class WeaponManager : MonoBehaviour
         }
 
         // SANTAWATER FUNCTIONS
-        if (currentTick % santaWaterCooldown == 0)
+        if (currentTick % santaWaterCooldown == 0 & santaLevel > 0)
         {
 
             Vector2[] spawnVecs = {
@@ -88,26 +101,39 @@ public class WeaponManager : MonoBehaviour
         {
             GameObject weapon = Instantiate(weapons[2], player.transform.position, Quaternion.identity);
             weapon.GetComponent<InfernalBolt>().level = boltLevel;
-        } 
+        }
+
+
+        // ORB FUNCTIONS
+        if (currentTick % orbCooldown == 0 & orbLevel > 0)
+        {
+            GameObject weapon = Instantiate(weapons[3], player.transform.position, Quaternion.identity);
+            weapon.GetComponent<Orbital>().level = orbLevel;
+        }
     }
 
 
 
 
+
+
+    // Helper functions
     void SpawnSanta(int level, Vector2 spawnVec)
     {
 
-        spawnVec *=  6;
-
+        
+        //spawn the weapon
         GameObject weapon = Instantiate(weapons[1], player.transform.position, Quaternion.identity);
+
+        // do transforms and stat adjustments to the weapon
+        spawnVec *= weapon.GetComponent<SantaWater>().spawnRadius;
         weapon.transform.position += new Vector3(spawnVec.x, spawnVec.y, 0);
         weapon.GetComponent<SantaWater>().level = level;
     }
 
 
-    public void UpdateLevels()
-    {
 
-    }
+
+    
 
 }

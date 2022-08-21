@@ -149,7 +149,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   body: {fileID: 6932253073367820852}
   image: {fileID: 6932253073367820854}
-  runSpeed: 12
+  runSpeed: 8
   currentHealth: 0
   maxHealth: 40
   damage: 5
