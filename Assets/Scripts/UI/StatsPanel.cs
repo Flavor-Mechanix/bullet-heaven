@@ -27,8 +27,8 @@ public class StatsPanel : MonoBehaviour
         int santaLevel = weaponController.GetComponent<WeaponManager>().santaLevel;
 
         playerLevelText.SetText(playerLevel.ToString());
-        playerMaxHpText.SetText(playerMaxHp.ToString("0.0"));
-        playerCurHpText.SetText(playerCurHp.ToString("0.0"));
+        playerMaxHpText.SetText(playerMaxHp.ToString("0"));
+        playerCurHpText.SetText(playerCurHp.ToString("0"));
         whipLevelText.SetText(whipLevel.ToString());
         santaLevelText.SetText(santaLevel.ToString());
     }

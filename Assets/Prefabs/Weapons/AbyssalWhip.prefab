@@ -4904,4 +4904,6 @@ MonoBehaviour:
   cooldown: 2
   castLength: 0.45
   level: 0
-  weaponDamage: 0
+  weaponDamage: 75
+  levelUpTooltip: +5 damage.
+  nameTooltip: Abyssal Whip

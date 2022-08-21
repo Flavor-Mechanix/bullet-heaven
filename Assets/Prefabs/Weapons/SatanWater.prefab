@@ -27,12 +27,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3200278764552772495}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.7065555, y: -0.6786341, z: -1.2255299}
+  m_LocalPosition: {x: 1.7065555, y: -0.6786341, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &9164112349172097897
 MonoBehaviour:
@@ -53,7 +53,7 @@ MonoBehaviour:
   spawnRadius: 10
   nameTooltip: Satan Water
   levelUpTooltip: Generates damaging zones.
-  weaponDamage: 35
+  weaponDamage: 30
 --- !u!61 &8660548434615068265
 BoxCollider2D:
   m_ObjectHideFlags: 0

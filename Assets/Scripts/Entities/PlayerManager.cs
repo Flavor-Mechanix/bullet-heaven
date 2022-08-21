@@ -16,7 +16,7 @@ public class PlayerManager : MonoBehaviour
     public int maxLevel = 20;
     public string loseScene;
 
-    // public AudioClip levelupDiddle;
+    public AudioClip levelupDiddle;
 
     [Header("Interactions")]
     [SerializeField] private GameObject upgradeMenu;
@@ -45,7 +45,7 @@ public class PlayerManager : MonoBehaviour
             //Reset level and increase xp needed for next level
             currentExp = 0;
             expNeededToLevel = levelScaler*expNeededToLevel + 5;
-            // AudioSource.(levelupDiddle, this.transform.position);
+            AudioSource.PlayClipAtPoint(levelupDiddle, this.transform.position);
             //Change weapon stats
             
         }
